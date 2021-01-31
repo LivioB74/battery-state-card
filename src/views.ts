@@ -12,9 +12,7 @@ const header = (text: string) => html`
 </div>
 `;
 
-const secondaryInfo = (text?: string) => text && html`
-<div class="secondary">${text}</div>
-`;
+
 
 const icon = (icon?: string, color?: string) => icon && html`
 <div class="icon">
@@ -22,19 +20,6 @@ const icon = (icon?: string, color?: string) => icon && html`
         style="color: ${color}"
         icon="${icon}"
     ></ha-icon>
-</div>
-`;
-
-export const battery = (model: BatteryViewModel) => html`
-<div class="entity-row entity-spacing battery ${model.classNames}" @click=${model.action}>
-    ${icon(model.icon, model.levelColor)}
-    <div class="name truncate">
-        ${model.name}
-        ${secondaryInfo(model.secondary_info)}
-    </div>
-    <div class="state">
-        ${model.level}${isNumber(model.level) ? html`&nbsp;%` : ""}
-    </div>
 </div>
 `;
 
@@ -57,7 +42,6 @@ export const collapsableWrapper = (contents: LitHtml[], model: IBatteryGroupView
         ${icon(model.icon, model.iconColor)}
         <div class="name truncate">
             ${model.name}
-            ${secondaryInfo(model.secondary_info)}
         </div>
         <div class="chevron">&lsaquo;</div>
     </div>

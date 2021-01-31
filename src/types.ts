@@ -207,7 +207,12 @@ export interface IBatteryEntity {
     /**
      * Rules for renaming entities/batteries
      */
-    bulk_rename?: IConvert | IConvert[]
+    bulk_rename?: IConvert | IConvert[];
+
+    /**
+     * Custom entity css styles
+     */
+    style?: string;
 }
 
 /**
