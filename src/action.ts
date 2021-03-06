@@ -2,7 +2,7 @@ import { IActionConfig, IBatteryEntity, SupportedActions } from "./types"
 import { HomeAssistant } from "./ha-types"
 import { log } from "./utils";
 
-export interface IAction {
+export interface IAction extends Function {
     (evt: Event): void
 }
 
@@ -70,9 +70,9 @@ export class ActionFactory {
      *
      * @param data Action data object
      */
-    static getAction(data: IActionData): IAction | null {
+    static getAction(data: IActionData): IAction | undefined {
         if (!data.config || data.config.action == <any>"none") {
-            return null;
+            return undefined;
         }
 
         return evt => {

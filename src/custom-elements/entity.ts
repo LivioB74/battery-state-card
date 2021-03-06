@@ -1,7 +1,8 @@
+import { ActionFactory } from "../action";
 import { HassEntity, HomeAssistant } from "../ha-types";
 import { css, html, LitElement } from "../lit-element";
 import { IBatteryEntity } from "../types";
-import { getColorInterpolationForPercentage, getRelativeTime, isNumber, log, processStyles as prefixCssSelectors, safeGetArray } from "../utils";
+import { getColorInterpolationForPercentage, getRelativeTime, isNumber, log, processStyles as prefixCssSelectors, safeGetArray, safeGetConfigObject } from "../utils";
 
 const secondaryInfo = (text?: string) => text && html`
 <div class="secondary">${text}</div>
@@ -144,6 +145,17 @@ export class BatteryEntityRow extends LitElement {
 
         // config is readonly and we want to apply default values so we need to recreate it
         this.config = JSON.parse(rawConfig);
+
+        if (config.tap_action) {
+            this.action = ActionFactory.getAction({
+                card: this,
+                config: safeGetConfigObject(config.tap_action || <any>null, "action"),
+                entity: config
+            })
+        }
+        else {
+            this.action = undefined;
+        }
     }
 
     /**
